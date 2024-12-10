@@ -30,12 +30,17 @@
             <p>{{ product.description|safe }}</p>
             <p class="text-muted">Category: {{ product.category.name }}</p>
             <p>Price: <span class="fw-bold">{{ product.price }} €</span></p>
+
             {% if product.stock == 0 %}
                 <p>Stock: <span class="badge bg-danger">Out of stock</span></p>
             {% else %}
                 <p>Stock: <span class="badge bg-success">In stock</span></p>
             {% endif %}
-            <a href="#" class="btn btn-primary">Add to Cart</a>
+
+            <form action="{% url 'add-to-cart' product.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Add to Cart</button>
+            </form>
         </div>
     </div>
 </div>

@@ -1,5 +1,5 @@
 .carousel-item {
-    height: 300px; /* Adjust this height as needed */
+    height: 300px;
 }
 
 .carousel-item img {
@@ -7,4 +7,8 @@
     max-width: 100%;
     height: auto;
     width: auto;
+}
+
+.quantity-input {
+    width: 80px;
 }
