@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Your Addresses{% endblock %}
+
+{% block content %}
+    <h1>Your Addresses</h1>
+    <a href="{% url 'add-address' %}" class="btn btn-primary mb-3">Add New Address</a>
+    {% if addresses %}
+        <ul class="list-group">
+            {% for address in addresses %}
+            <li class="list-group-item">
+                <span class="fw-bold">{{ address.address }}</span><br>
+                {{ address.city }}, {{ address.postal_code }}<br>
+                {{ address.country.name }} ({{ address.country }})<br>
+                <div class="mt-2">
+                    <a href="{% url 'edit-address' address.id %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'delete-address' address.id %}" class="btn btn-sm btn-danger">Delete</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no saved addresses.</p>
+    {% endif %}
+{% endblock %}
