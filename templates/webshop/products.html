@@ -7,23 +7,23 @@
 
 <div class="row">
     {% for product in products %}
-    <div class="col-md-4">
-        <div class="card mb-4">
-            <img src="{{ product.images.first.image.url }}" alt="product image">
-            <div class="card-body">
-                <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">
-                    {% if product.stock == 0 %}
-                        <span class="badge bg-danger">Out of stock</span>
-                    {% else %}
-                        <span class="badge bg-success">In stock</span>
-                    {% endif %}
-                </p>
-                <p class="card-text">{{ product.price }} €</p>
-                <a href="{% url 'product' product.id %}" class="btn btn-primary">View Product</a>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{{ product.images.first.image.url }}" alt="product image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">
+                        {% if product.stock == 0 %}
+                            <span class="badge bg-danger">Out of stock</span>
+                        {% else %}
+                            <span class="badge bg-success">In stock</span>
+                        {% endif %}
+                    </p>
+                    <p class="card-text">{{ product.price }} €</p>
+                    <a href="{% url 'product' product.id %}" class="btn btn-primary">View Product</a>
+                </div>
             </div>
         </div>
-    </div>
     {% empty %}
         <p>No products found for this category.</p>
     {% endfor %}

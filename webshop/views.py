@@ -32,7 +32,8 @@ def add_to_cart(request, product_id):
 @login_required
 def cart_detail(request):
     cart_items = CartItem.objects.filter(user=request.user)
-    return render(request, 'webshop/cart.html', {'cart_items': cart_items})
+    total_cost = sum(item.product.price * item.quantity for item in cart_items)
+    return render(request, 'webshop/cart.html', {'cart_items': cart_items, 'total_cost': total_cost})
 
 @login_required
 def remove_from_cart(request, cart_item_id):
