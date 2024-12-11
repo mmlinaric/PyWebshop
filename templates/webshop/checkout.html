@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Checkout</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="address">Select Shipping Address:</label>
+            <select name="address" id="address" class="form-control">
+                {% for address in addresses %}
+                <option value="{{ address.id }}">{{ address.address }}, {{ address.city }}, {{ address.postal_code }}, {{ address.country }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Confirm Order</button>
+    </form>
+{% endblock %}

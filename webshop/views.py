@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Category, Product, CartItem
+
+from .models import Category, Product, CartItem, Order, OrderItem
+from account.models import Address
 
 def list_products(request, id):
     category = get_object_or_404(Category, id=id)
@@ -21,10 +23,6 @@ def add_to_cart(request, product_id):
         product=product,
         defaults={'quantity': 1}
     )
-
-    # If item has not been added for the first time
-    if not created:
-        cart_item.quantity += 1
 
     cart_item.save()
     return redirect('cart')
@@ -61,4 +59,36 @@ def update_cart_item(request, cart_item_id):
 
 @login_required
 def checkout(request):
-    return redirect('/')
+    cart_items = CartItem.objects.filter(user=request.user)    
+    addresses = Address.objects.filter(user=request.user)
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+
+    if request.method == 'POST':
+        address_id = request.POST.get('address')
+        address = get_object_or_404(Address, id=address_id, user=request.user)
+        order = Order.objects.create(user=request.user)
+
+        for item in cart_items:
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                price=item.product.price
+            )
+
+        cart_items.delete()
+        return redirect('order_confirmation', order_id=order.id)
+    
+    return render(request, 'webshop/checkout.html', {'cart_items': cart_items, 'addresses': addresses, 'total_price': total_price})
+
+@login_required
+def order_confirmation(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    order_items = order.orderitem_set.all()
+    total_price = order.get_total_price()
+    return render(request, 'webshop/order_confirmation.html', {'order': order, 'order_items': order_items, 'total_price': total_price})
+
+@login_required
+def orders(request):
+    orders = Order.objects.filter(user=request.user)
+    return render(request, 'webshop/orders.html', {'orders': orders})
