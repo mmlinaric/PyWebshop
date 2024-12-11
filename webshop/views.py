@@ -1,12 +1,25 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Category, Product, CartItem, Order, OrderItem
 from account.models import Address
 
 def list_products(request, id):
     category = get_object_or_404(Category, id=id)
-    products = Product.objects.filter(category=category)
+    product_list = Product.objects.filter(category=category)
+    
+    # Pagination
+    page = request.GET.get('page', 1)
+    paginator = Paginator(product_list, 10)
+
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
     return render(request, 'webshop/products.html', {'category': category, 'products': products})
 
 def product_info(request, id):

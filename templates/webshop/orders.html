@@ -18,7 +18,7 @@
                 <tr>
                     <td>{{ order.id }}</td>
                     <td>{{ order.created_at }}</td>
-                    <td>{{ order.get_total_price }}</td>
+                    <td>{{ order.get_total_price }} €</td>
                     <td><a href="{% url 'order_confirmation' order.id %}" class="btn btn-primary btn-sm">View</a></td>
                 </tr>
             {% endfor %}
