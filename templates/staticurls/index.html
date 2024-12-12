@@ -1,7 +1,107 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Home{% endblock %}
 
-{% block content %}
-	<h1>Home</h1>
+{% block before_content %}
+    <!-- Hero -->
+    <section class="hero bg-primary text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4">Welcome to PyWebshop</h1>
+            <p class="lead">Find the best tech products at unbeatable prices!</p>
+            <a href="#popular-products" class="btn btn-lg btn-light">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Most popular products -->
+    <section id="popular-products" class="products py-5">
+    	<h1 class="display-4 text-center mb-5">Most popular products</h1>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img src="{% static 'img/thinkcentre-m920q.jpg' %}" class="card-img-top" alt="ThinkCentre M920Q">
+                        <div class="card-body">
+                            <h5 class="card-title">ThinkCentre M920Q</h5>
+                            <p class="card-text">This compact yet powerful desktop is equipped with Intel Core processors, making it perfect for business use. With advanced security features, it ensures your data is protected. Its small form factor saves space while delivering robust performance.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img src="{% static 'img/sonoff-snzb-02.jpg' %}" class="card-img-top" alt="SONOFF SNZB-02">
+                        <div class="card-body">
+                            <h5 class="card-title">SONOFF SNZB-02</h5>
+                            <p class="card-text">This smart temperature and humidity sensor offers real-time monitoring, making it ideal for home automation. With high accuracy, it ensures your environment stays comfortable. Its compact size saves space while providing reliable performance.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img src="{% static 'img/jbl-go-3.jpg' %}" class="card-img-top" alt="Product 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Product 3</h5>
+                            <p class="card-text">This ultra-portable speaker delivers bold sound and rich bass, perfect for on-the-go listening. With a durable design, it ensures you can enjoy your music anywhere. Its compact size saves space while offering reliable performance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About us -->
+    <section class="about py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">About Us</h2>
+	        <p>
+	            Welcome to PyWebshop, your premier destination for the latest in tech and electronics. Located in the heart of Zagreb, Croatia, we pride ourselves on delivering high-quality products and exceptional customer service. Founded in 2024, PyWebshop started with a simple mission: to make cutting-edge technology accessible to everyone. Our passion for innovation and customer satisfaction drives us to offer a diverse range of products, from smart home devices to high-performance computing equipment.
+	        </p>
+	        <p>
+	            At PyWebshop, we understand the importance of trust and reliability. That's why we source our products from reputable manufacturers and ensure they meet the highest standards of quality. Whether you're a tech enthusiast or a casual user, we have something for everyone. We are more than just a webshop; we are a part of the vibrant community of Zagreb. We actively engage with local tech events, support budding entrepreneurs, and contribute to the growth of our city's tech ecosystem.
+	        </p>
+	        <p>
+	            We hope you enjoy our products as much as we enjoy offering them to you. If you have any questions, comments, or need assistance, please don't hesitate to contact us. Thank you for choosing PyWebshop – your trusted partner in technology.
+	        </p>
+        </div>
+    </section>
+
+    <!-- Testimonials -->   
+    <section class="testimonials py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Customer Testimonials</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <p class="card-text">
+                                "I've purchased multiple items from PyWebshop and have always been impressed with the quality and customer service. Highly recommend!"
+                            </p>
+                            <p class="card-text"><strong>- John Doe</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <p class="card-text">
+                                "Fast shipping, great products, and excellent support. PyWebshop has become my go-to store for electronics."
+                            </p>
+                            <p class="card-text"><strong>- Jane Doe</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <p class="card-text">
+                                "Amazing selection of products at unbeatable prices. I'm very satisfied with my purchases and the overall experience."
+                            </p>
+                            <p class="card-text"><strong>- John Smith</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

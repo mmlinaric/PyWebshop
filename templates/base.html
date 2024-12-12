@@ -11,17 +11,18 @@
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 
-<body>
-    <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary mb-3" data-bs-theme="dark">
+<body class="d-flex flex-column min-vh-100">
+    <!-- Navbar -->
+    <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">PyWebshop</a>
+            <a class="navbar-brand" href="{% url 'index' %}">PyWebshop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
 
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -47,9 +48,24 @@
             </div>
         </div>
     </nav>
-    <div class="container mb-3">
+
+    {% block before_content %}{% endblock before_content%}
+
+    <div class="container my-2 flex-grow-1">
         {% block content %}{% endblock %}
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="{% url 'index' %}" class="nav-link px-2 text-muted">Home</a></li>
+          <li class="nav-item"><a href="{% url 'login' %}" class="nav-link px-2 text-muted">Login</a></li>
+          <li class="nav-item"><a href="{% url 'register' %}" class="nav-link px-2 text-muted">Register</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Terms of Service</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Privacy Policy</a></li>
+        </ul>
+        <p class="text-center text-muted">Copyright &copy; {% now "Y" %} PyWebshop</p>
+    </footer>
 
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
