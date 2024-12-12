@@ -49,6 +49,14 @@
         </div>
     </nav>
 
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}{{ message.tags }}{% endif %} w-100 text-center" role="alert">
+               {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     {% block before_content %}{% endblock before_content%}
 
     <div class="container my-2 flex-grow-1">

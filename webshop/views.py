@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import messages
 
 from .models import Category, Product, CartItem, Order, OrderItem
 from account.models import Address
@@ -79,8 +80,17 @@ def checkout(request):
     if request.method == 'POST':
         address_id = request.POST.get('address')
         address = get_object_or_404(Address, id=address_id, user=request.user)
+
+        # Check if all products are available
+        for item in cart_items:
+            if item.product.stock < item.quantity:
+                messages.error(request, f"Not enough stock for {item.product.name}. Only {item.product.stock} left.")
+                return redirect('cart')
+
+        # Create a new order
         order = Order.objects.create(user=request.user)
 
+        # Add items to a new order
         for item in cart_items:
             OrderItem.objects.create(
                 order=order,
@@ -88,6 +98,10 @@ def checkout(request):
                 quantity=item.quantity,
                 price=item.product.price
             )
+
+            # Deduct stock from the product
+            product.stock -= item.quantity
+            product.save()
 
         cart_items.delete()
         return redirect('order_confirmation', order_id=order.id)
