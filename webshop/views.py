@@ -118,7 +118,7 @@ def order_confirmation(request, order_id):
 @login_required
 def orders(request):
     # Pagination
-    order_list = Order.objects.filter(user=request.user)
+    order_list = Order.objects.filter(user=request.user).order_by('-created_at')
     page = request.GET.get('page', 1)
     paginator = Paginator(order_list, 10)
 
