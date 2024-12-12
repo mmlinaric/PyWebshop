@@ -34,6 +34,10 @@
                     <li class="page-item">
                         <a class="page-link" href="?page={{ products.previous_page_number }}">&laquo; Previous</a>
                     </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link disabled" href="#">&laquo; Previous</a>
+                    </li>
                 {% endif %}
 
                 {% for num in products.paginator.page_range %}
@@ -51,6 +55,10 @@
                 {% if products.has_next %}
                     <li class="page-item">
                         <a class="page-link" href="?page={{ products.next_page_number }}">Next &raquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link disabled" href="#">Next &raquo;</a>
                     </li>
                 {% endif %}
             </ul>

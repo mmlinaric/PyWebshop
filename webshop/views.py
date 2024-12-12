@@ -117,5 +117,16 @@ def order_confirmation(request, order_id):
 
 @login_required
 def orders(request):
-    orders = Order.objects.filter(user=request.user)
+    # Pagination
+    order_list = Order.objects.filter(user=request.user)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(order_list, 10)
+
+    try:
+        orders = paginator.page(page)
+    except PageNotAnInteger:
+        orders = paginator.page(1)
+    except EmptyPage:
+        orders = paginator.page(paginator.num_pages)
+
     return render(request, 'webshop/orders.html', {'orders': orders})
