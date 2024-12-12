@@ -100,8 +100,8 @@ def checkout(request):
             )
 
             # Deduct stock from the product
-            product.stock -= item.quantity
-            product.save()
+            item.product.stock -= item.quantity
+            item.product.save()
 
         cart_items.delete()
         return redirect('order_confirmation', order_id=order.id)
