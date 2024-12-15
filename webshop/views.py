@@ -12,7 +12,7 @@ def list_products(request, id):
     
     # Pagination
     page = request.GET.get('page', 1)
-    paginator = Paginator(product_list, 10)
+    paginator = Paginator(product_list, 6)
 
     try:
         products = paginator.page(page)
@@ -76,6 +76,10 @@ def checkout(request):
     cart_items = CartItem.objects.filter(user=request.user)    
     addresses = Address.objects.filter(user=request.user)
     total_price = sum(item.product.price * item.quantity for item in cart_items)
+
+    if not addresses.exists():
+        messages.error(request, "You need to add an address before checking out.")
+        return redirect('add-address')
 
     if request.method == 'POST':
         address_id = request.POST.get('address')
