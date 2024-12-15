@@ -32,6 +32,11 @@ def product_info(request, id):
 @login_required
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
+
+    if product.stock == 0:
+        messages.error(request, 'You can\'t add this product to cart because it is out of stock.')
+        return redirect('product', id=product_id)
+
     cart_item, created = CartItem.objects.get_or_create(
         user=request.user,
         product=product,
